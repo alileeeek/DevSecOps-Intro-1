@@ -57,3 +57,9 @@ Which of these are MISSING?
 1. **Missing Strict-Transport-Security (HSTS):** The application is served over plain HTTP locally. If deployed in production without HSTS, it is vulnerable to Man-in-the-Middle (MitM) attacks where an attacker can downgrade connections. *Maps to OWASP A02: Cryptographic Failures.*
 2. **Unauthenticated API Endpoints:** The `/api/Products/<id>/reviews` endpoint can be accessed without any authentication token. This exposes internal data structures and could allow attackers to scrape data or attempt injection attacks without needing a user session. *Maps to OWASP A01: Broken Access Control.*
 3. **Sensitive Data in Client-Side Storage:** The application stores a JWT `token` and basket ID (`bid`) in the browser's Local Storage. If the application has an XSS (Cross-Site Scripting) vulnerability, an attacker can easily steal these tokens via JavaScript. *Maps to OWASP A03: Injection (leading to Session Hijacking) or A05: Security Misconfiguration.*
+## PR Template Setup
+
+- File: `.github/PULL_REQUEST_TEMPLATE.md`
+- Sections included: Goal / Changes / Testing / Artifacts & Screenshots
+- Checklist items: Title format, No secrets, Submission file exists
+- Auto-fill verified: [x] Yes — PR description showed my template when I opened the draft PR.
