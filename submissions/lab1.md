@@ -62,4 +62,5 @@ Which of these are MISSING?
 - File: `.github/PULL_REQUEST_TEMPLATE.md`
 - Sections included: Goal / Changes / Testing / Artifacts & Screenshots
 - Checklist items: Title format, No secrets, Submission file exists
-- Auto-fill verified: [x] Yes — PR description showed my template when I opened the draft PR.
+- Auto-fill verified:
+- [x] Yes — PR description showed my template when I opened the draft PR.
