@@ -31,6 +31,7 @@ Arrow: User Browser (Internet) -> Juice Shop Application (Container).
 Why attractive: It crosses the main trust boundary from the untrusted internet directly to the app without encryption (HTTP), making it the easiest target for Man-in-the-Middle attacks to steal credentials.
 
 
+
 ## Task 2: Secure Variant & Diff
 
 ### Risk count comparison
@@ -55,3 +56,25 @@ Why attractive: It crosses the main trust boundary from the untrusted internet d
 ### Honesty check
 Did the total drop more than 50%? No, it actually increased by 1 (23 → 24).
 This happened because I added two new communication links (To Database and To Logging) to demonstrate prepared statements and encrypted logging, which introduced new risks. The encryption changes fixed some risks but the new links created others. To truly reduce risks, I would need to add authentication to the new links and ensure all security requirements are declared. This shows that threat modeling is iterative — each change needs to be carefully evaluated to avoid introducing new vulnerabilities while fixing old ones.
+
+
+
+## Bonus Task: Auth Flow Threat Model
+
+### Risk count
+| Severity | Count |
+|----------|------:|
+| Critical | 0 |
+| High | 0 |
+| Elevated | 3 |
+| Medium | 19 |
+| Low | 6 |
+| **Total** | 28 |
+
+### Three auth-specific risks (NOT in the baseline model's top 5)
+1. **sql-nosql-injection** — STRIDE: T (Tampering) — Mitigation: Use parameterized queries in auth-api when checking credentials against user-db to prevent SQL injection attacks that could bypass authentication.
+2. **missing-authentication** (auth-api-to-token-signer) — STRIDE: E (Elevation of Privilege) — Mitigation: Add authentication between auth-api and token-signer to prevent unauthorized components from requesting JWT tokens on behalf of users.
+3. **missing-authentication** (browser-to-auth-api) — STRIDE: S (Spoofing) — Mitigation: Implement proper authentication checks on the login endpoint to prevent attackers from impersonating users or brute-forcing credentials without rate limiting.
+
+### Reflection (2-3 sentences)
+Building the focused auth model revealed risks specific to the authentication flow that the baseline architecture model missed, such as SQL injection in the credential verification path and missing authentication between internal auth components. Feature-level threat models provide deeper insights into specific workflows, while architecture-level models give a broader but shallower view. The auth model showed that even with HTTPS encryption, application-level vulnerabilities like SQL injection and missing authentication remain critical attack vectors that require code-level fixes.
